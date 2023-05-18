@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabaseClient";
 
+// The http method may have been used slightly incorrectly, bear with it
 export default async function handler(req, res) {
   if (req.method === "POST") {
     // updating user data
@@ -17,22 +18,21 @@ export default async function handler(req, res) {
       // profile exist
 
       // update an existing profile
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("Profile")
         .update(dataToUpload)
         .eq("email", dataToUpload.email);
 
-      if (!error) res.status(200).json(data);
+      if (!error) res.status(200).json({ message: "success" });
       else res.status(500).json(error);
     } else {
       // profile does not exist yet
 
       // insert a new profile
-      const { data: user, error } = await supabase
-        .from("Profile")
-        .insert([dataToUpload]);
+      const { error } = await supabase.from("Profile").insert([dataToUpload]);
 
-      if (!error) res.status(200).json(data);
+      // return response
+      if (!error) res.status(200).json({ message: "success" });
       else res.status(500).json(error);
     }
   } else if (req.method === "PUT") {
@@ -53,14 +53,15 @@ export default async function handler(req, res) {
     );
 
     // update the balance
-    const { data, err } = await supabase
+    const { error: err } = await supabase
       .from("Profile")
       .update(dataToUpload)
       .eq("email", dataToUpload.email);
 
+    // return response
     if (!error && !err) {
       res.status(200).json({ message: "success" });
-    } else res.status(500).json({ error: error, err: err });
+    } else res.status(500).json({ error1: error, error2: err });
   } else {
     res.status(200).json({ message: "other method" });
   }
