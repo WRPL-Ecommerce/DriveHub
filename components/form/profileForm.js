@@ -3,8 +3,28 @@ import { useUser } from "@supabase/auth-helpers-react";
 export default function ProfileForm() {
   const user = useUser();
   async function handleSubmit(e) {
-    console.log(e);
-    alert("success");
+    // e.preventDefault();
+    const data = {
+      email: e.target.email.value,
+      first_name: e.target.firstName.value,
+      last_name: e.target.lastName.value,
+      phone: e.target.lastName.value,
+    };
+    console.log(data);
+
+    const response = await fetch("http://localhost:3000/api/profile", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const responseData = response.json();
+    console.log(response.status);
+    console.log(responseData);
+
+    if (response.status === 200) alert("success");
+    else alert("failed");
   }
   return (
     <>

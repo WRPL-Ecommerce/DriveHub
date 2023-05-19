@@ -34,7 +34,7 @@ export async function getServerSideProps(ctx) {
     const { data: email } = await supabase
       .from("Profile")
       .select("email")
-      .eq("email", "t");
+      .eq("email", session.user.email);
 
     return {
       props: {
