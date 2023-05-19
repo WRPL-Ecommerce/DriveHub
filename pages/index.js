@@ -11,6 +11,7 @@ export default function Home() {
     <>
       {!session ? (
         <div className="flex flex-col items-center">
+          <h1 className=" text-4xl">Login</h1>
           <div className=" w-1/2 items-center ">
             <Auth supabaseClient={supabase} />
           </div>
