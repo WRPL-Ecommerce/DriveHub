@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default function Navbar() {
   const user = useUser();
-  const array1 = ["about", "Link 2", "profile", "Link 4"];
-  const array2 = ["about", "Link 2", "Link 4"];
+  const array1 = ["About", "Order", "Profile"];
+  const array2 = ["About"];
 
   return (
     <>
@@ -18,14 +18,14 @@ export default function Navbar() {
               ? array1.map((link, idx) => {
                   return (
                     <li key={idx} className=" mx-4 hover:text-cyan-300">
-                      <Link href={`/${link}`}>{link}</Link>
+                      <Link href={`/${link.toLowerCase()}`}>{link}</Link>
                     </li>
                   );
                 })
               : array2.map((link, idx) => {
                   return (
                     <li key={idx} className=" mx-4 hover:text-cyan-300">
-                      <Link href={`/${link}`}>{link}</Link>
+                      <Link href={`/${link.toLowerCase()}`}>{link}</Link>
                     </li>
                   );
                 })}
