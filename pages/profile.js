@@ -1,17 +1,20 @@
-import ProfileForm from "@/components/form/profileForm";
+import ProfileInsert from "@/components/form/profileInsert";
+import ProfileUpdate from "@/components/form/profileUpdate";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";
 
-export default function Profile({ email }) {
+export default function Profile({ data }) {
   const user = useUser();
   return (
     <>
       {!user ? (
         <p>no user</p>
-      ) : email.length > 0 ? (
-        <p>update data</p>
+      ) : data.length > 0 ? (
+        <div>
+          <ProfileUpdate />
+        </div>
       ) : (
-        <ProfileForm />
+        <ProfileInsert />
       )}
     </>
   );
@@ -31,14 +34,15 @@ export async function getServerSideProps(ctx) {
       },
     };
   } else {
-    const { data: email } = await supabase
+    const { data } = await supabase
       .from("Profile")
-      .select("email")
+      .select("*")
       .eq("email", session.user.email);
+    console.log(data);
 
     return {
       props: {
-        email: email,
+        data: data,
       },
     };
   }
