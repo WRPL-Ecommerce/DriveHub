@@ -103,10 +103,54 @@ export default async function handler(req, res) {
     }
   } else if (req.method === "PUT") {
     // update information of a car
-    res.status(200).json({ message: "other method" });
-  } else if (req.method === "DELETE") {
+
+    // example input
+    // {
+    //   car_id: car id,
+    //   someColumn: new data
+    // }
+
+    let dataToUpload;
+    try {
+      dataToUpload = JSON.parse(req.body);
+    } catch (e) {
+      dataToUpload = req.body;
+    }
+    console.log(dataToUpload);
+
+    // update existing data with selected seller id
+    const { error } = await supabase
+      .from("Car")
+      .update(dataToUpload)
+      .eq("car_id", dataToUpload.car_id);
+    console.log(error);
+
+    if (!error) res.status(200).json({ message: "success" });
+    else res.status(500).json(error);
+  } else if (req.method === "PATCH") {
     // delete a car from record
-    res.status(200).json({ message: "other method" });
+
+    // input example
+    // {
+    //   car_id: car id
+    // }
+
+    let dataToUpload;
+    try {
+      dataToUpload = JSON.parse(req.body);
+    } catch (e) {
+      dataToUpload = req.body;
+    }
+    console.log(dataToUpload);
+
+    const { error } = await supabase
+      .from("Car")
+      .delete()
+      .eq("car_id", dataToUpload.car_id);
+    console.log(error);
+
+    if (!error) res.status(200).json({ message: "success" });
+    else res.status(500).json(error);
   } else {
     res.status(200).json({ message: "other method" });
   }
