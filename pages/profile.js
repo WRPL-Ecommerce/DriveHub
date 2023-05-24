@@ -1,5 +1,5 @@
-import ProfileInsert from "@/components/form/profileInsert";
-import ProfileUpdate from "@/components/form/profileUpdate";
+import ProfileInsert from "@/components/profileForm/profileInsert";
+import ProfileUpdate from "@/components/profileForm/profileUpdate";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";
 
