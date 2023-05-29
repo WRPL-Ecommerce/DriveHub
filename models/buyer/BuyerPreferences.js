@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+const dbBuyer = mongoose.connection.useDb("buyer");
+
+
 const buyerPreferenceSchema = new mongoose.Schema({
   buyerId: String,
   carMake: String,
@@ -7,7 +10,7 @@ const buyerPreferenceSchema = new mongoose.Schema({
   maximumPrice: Number,
 });
 
-export const BuyerPreference = mongoose.model(
+export const BuyerPreference = dbBuyer.model(
   "BuyerPreference",
   buyerPreferenceSchema
 );

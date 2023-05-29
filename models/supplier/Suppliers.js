@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+const dbSupplier = mongoose.connection.useDb("supplier");
+
 const supplierSchema = new mongoose.Schema({
   supplierName: String,
   contactNumber: Number,
@@ -7,4 +9,4 @@ const supplierSchema = new mongoose.Schema({
   address: String,
 });
 
-export const Supplier = mongoose.model("Supplier", supplierSchema);
+export const Supplier = dbSupplier.model("Supplier", supplierSchema);

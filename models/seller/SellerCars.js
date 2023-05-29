@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 
+const dbSeller = mongoose.connection.useDb("seller")
+
+
 const sellerCarSchema = new mongoose.Schema({
   sellerId: String,
   carMake: String,
@@ -8,4 +11,4 @@ const sellerCarSchema = new mongoose.Schema({
   price: Number,
 });
 
-export const SellerCar = mongoose.model("SellerCar", sellerCarSchema);
+export const SellerCar = dbSeller.model("SellerCar", sellerCarSchema);

@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+const dbSupplier = mongoose.connection.useDb("supplier");
+
 const supplierInventorySchema = new mongoose.Schema({
   supplierId: String,
   carMake: String,
@@ -8,7 +10,7 @@ const supplierInventorySchema = new mongoose.Schema({
   price: Number,
 });
 
-export const SupplierInventory = mongoose.model(
+export const SupplierInventory = dbSupplier.model(
   "SupplierInventory",
   supplierInventorySchema
 );

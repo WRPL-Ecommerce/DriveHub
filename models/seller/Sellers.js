@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+const dbSeller = mongoose.connection.useDb("seller")
+
 const sellerSchema = new mongoose.Schema({
   sellerName: String,
   contactNumber: Number,
@@ -7,4 +9,4 @@ const sellerSchema = new mongoose.Schema({
   address: String,
 });
 
-export const Seller = mongoose.model("Seller", sellerSchema);
+export const Seller = dbSeller.model("Seller", sellerSchema);

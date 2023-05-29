@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+const dbBank = mongoose.connection.useDb("banking");
+
 const bankAccountSchema = new mongoose.Schema({
   accountNumber: String,
   bankName: String,
@@ -9,4 +11,4 @@ const bankAccountSchema = new mongoose.Schema({
   phone: String,
 });
 
-export const BankAccount = mongoose.model("BankAccount", bankAccountSchema);
+export const BankAccount = dbBank.model("BankAccount", bankAccountSchema);
