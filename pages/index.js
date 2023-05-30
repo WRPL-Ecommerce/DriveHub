@@ -1,10 +1,10 @@
-import { Inter } from "next/font/google";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Auth } from "@supabase/auth-ui-react";
+import { SellerCar } from "@/models/seller/SellerCars";
+import dbConnect from "@/lib/dbConnect";
+import Card from "@/components/Card";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Home() {
+export default function Home({ data }) {
   const session = useSession();
   const supabase = useSupabaseClient();
   return (
@@ -18,16 +18,25 @@ export default function Home() {
         </div>
       ) : (
         <div>
-          <p>Logged In</p>
-          <button
-            onClick={() => {
-              supabase.auth.signOut();
-            }}
-          >
-            Sign Out
-          </button>
+          <div className=" grid md:grid-cols-4 gap-3">
+            {data.map((carData) => (
+              <Card key={carData._id} carData={carData} />
+            ))}
+          </div>
         </div>
       )}
     </>
   );
+}
+
+export async function getServerSideProps() {
+  dbConnect();
+  const carList = await SellerCar.find({});
+  const data = JSON.parse(JSON.stringify(carList));
+
+  return {
+    props: {
+      data,
+    },
+  };
 }
