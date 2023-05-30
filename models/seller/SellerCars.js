@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
-const dbSeller = mongoose.connection.useDb("seller")
-
+const dbSeller = mongoose.connection.useDb("seller");
 
 const sellerCarSchema = new mongoose.Schema({
   sellerId: String,

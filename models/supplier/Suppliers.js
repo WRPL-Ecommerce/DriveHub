@@ -7,6 +7,7 @@ const supplierSchema = new mongoose.Schema({
   contactNumber: Number,
   email: String,
   address: String,
+  supplierId: String,
 });
 
 export const Supplier = dbSupplier.model("Supplier", supplierSchema);
