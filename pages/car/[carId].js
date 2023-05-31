@@ -18,9 +18,9 @@ export default function Car({ carData, sellerData }) {
 }
 
 export async function getServerSideProps(ctx) {
-  const { carId } = ctx.query;
+  const { carId: _id } = ctx.query;
 
-  const carDetail = await SellerCar.findOne({ carId: carId });
+  const carDetail = await SellerCar.findOne({ _id: _id });
   const carData = JSON.parse(JSON.stringify(carDetail));
 
   if (!carDetail) return { props: { carData: null, sellerData: null } };

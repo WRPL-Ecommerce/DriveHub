@@ -20,7 +20,7 @@ export default function Card({ carData }) {
         <p>Price: {carData.price} USD</p>
         <button
           onClick={() => {
-            push(`/car/${carData.carId}`);
+            push(`/car/${carData._id}`);
           }}
           className=" bg-sky-300 rounded-xl px-2 mt-2"
         >
