@@ -4,7 +4,7 @@ const dbSupplier = mongoose.connection.useDb("supplier");
 
 const supplierSchema = new mongoose.Schema({
   supplierName: String,
-  contactNumber: Number,
+  contactNumber: String,
   email: String,
   address: String,
   supplierId: String,

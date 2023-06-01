@@ -5,10 +5,10 @@ const dbSeller = mongoose.connection.useDb("seller");
 const sellerSchema = new mongoose.Schema({
   sellerId: String,
   sellerName: String,
-  contactNumber: Number,
+  contactNumber: String,
   email: String,
   address: String,
-  sellerId: String,
+  supplier: String,
 });
 
 export const Seller = dbSeller.model("Seller", sellerSchema);
