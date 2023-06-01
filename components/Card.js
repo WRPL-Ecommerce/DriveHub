@@ -18,15 +18,15 @@ export default function Card({ carData }) {
         <h1 className=" text-2xl">{carData.carModel}</h1>
         <p>Year: {carData.year}</p>
         <p>Price: {carData.price} USD</p>
-        <button
-          onClick={() => {
-            push(`/car/${carData._id}`);
-          }}
-          className=" bg-sky-300 rounded-xl px-2 mt-2"
-        >
-          Detail
-        </button>
       </div>
+      <button
+        onClick={() => {
+          push(`/car/${carData._id}`);
+        }}
+        className=" bg-sky-300 hover:bg-sky-400 rounded-b-lg px-2 mt-2 w-full"
+      >
+        Detail
+      </button>
     </div>
   );
 }
