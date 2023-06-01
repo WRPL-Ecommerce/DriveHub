@@ -2,15 +2,10 @@ import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Auth } from "@supabase/auth-ui-react";
 import Image from "next/image";
 import car from "../public/car3.png";
-import gmail from "../public/gmail.png";
-import whatsapp from "../public/whatsapp.png";
 import cars from "../public/car2.jpeg";
 import carss from "../public/sienta.jpeg";
-import { SellerCar } from "@/models/seller/SellerCars";
-import dbConnect from "@/lib/dbConnect";
-import Card from "@/components/Card";
 
-export default function Home({ data }) {
+export default function Home() {
   const session = useSession();
   const supabase = useSupabaseClient();
   return (
@@ -112,39 +107,11 @@ export default function Home({ data }) {
             </ul>
           </section>
 
-          <div className=" w-full">
-            <div className=" grid sm:grid-cols-2 md:grid-cols-4 gap-3">
-              {data.map((carData) => (
-                <Card key={carData._id} carData={carData} />
-              ))}
-            </div>
-          </div>
-
           <footer>
             <p> 2023 Car Selling Website. All rights reserved.</p>
           </footer>
-
-          <button
-            onClick={() => {
-              supabase.auth.signOut();
-            }}
-          >
-            Sign Out
-          </button>
         </>
       )}
     </>
   );
-}
-
-export async function getServerSideProps() {
-  dbConnect();
-  const carList = await SellerCar.find({});
-  const data = JSON.parse(JSON.stringify(carList));
-
-  return {
-    props: {
-      data,
-    },
-  };
 }
