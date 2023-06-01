@@ -2,10 +2,12 @@ import ProfileInsert from "@/components/profileForm/profileInsert";
 import ProfileUpdate from "@/components/profileForm/profileUpdate";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+import { useRouter } from "next/router";
 
 export default function Profile({ data }) {
   const user = useUser();
   const supabase = useSupabaseClient();
+  const { push } = useRouter();
   return (
     <>
       {!user ? (
@@ -16,6 +18,7 @@ export default function Profile({ data }) {
           <button
             onClick={() => {
               supabase.auth.signOut();
+              push("/");
             }}
           >
             Sign Out
@@ -27,6 +30,7 @@ export default function Profile({ data }) {
           <button
             onClick={() => {
               supabase.auth.signOut();
+              push("/");
             }}
           >
             Sign Out
