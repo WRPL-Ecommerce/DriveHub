@@ -17,8 +17,8 @@ export default function Home({ data }) {
           </div>
         </div>
       ) : (
-        <div>
-          <div className=" grid md:grid-cols-4 gap-3">
+        <div className=" w-full">
+          <div className=" grid sm:grid-cols-2 md:grid-cols-4 gap-3">
             {data.map((carData) => (
               <Card key={carData._id} carData={carData} />
             ))}
