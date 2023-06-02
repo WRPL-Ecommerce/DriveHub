@@ -15,11 +15,9 @@ export default function Car({
   const { push } = useRouter();
 
   async function handlePayment() {
-    const response = await fetch("http://localhost:3000/api/midtrans", {
+    const response = await fetch("/api/midtrans", {
       method: "POST",
-      body: {
-
-      }
+      body: {},
     });
     console.log(response);
     const res = await response.json();

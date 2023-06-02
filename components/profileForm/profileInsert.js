@@ -12,7 +12,7 @@ export default function ProfileForm() {
     };
     console.log(data);
 
-    const response = await fetch("http://localhost:3000/api/profile", {
+    const response = await fetch("/api/profile", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

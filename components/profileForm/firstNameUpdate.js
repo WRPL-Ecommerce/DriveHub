@@ -10,7 +10,7 @@ export default function FirstNameUpdate() {
     };
     console.log(data);
 
-    const response = await fetch("http://localhost:3000/api/profile", {
+    const response = await fetch("/api/profile", {
       method: "PUT",
       body: JSON.stringify(data),
     });
