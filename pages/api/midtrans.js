@@ -25,11 +25,12 @@ export default async function handler(req, res) {
       },
     };
 
-    snap.createTransaction(parameter).then((transaction) => {
+    let url
+    await snap.createTransaction(parameter).then((transaction) => {
       let transactionToken = transaction.token;
-      let url = transaction.redirect_url;
+      url = transaction.redirect_url;
       console.log(transactionToken);
-      res.status(200).json({ message: "success", url: url });
     });
+    res.status(200).json({ message: "success", url: url });
   }
 }
