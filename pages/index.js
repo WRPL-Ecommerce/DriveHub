@@ -19,7 +19,7 @@ export default function Home() {
         </div>
       ) : (
         <>
-          <div class="hero">
+          <div className="hero">
             <h2>Welcome to Drive Hub</h2>
             <h1>Looking for Cars?</h1>
 
@@ -31,7 +31,7 @@ export default function Home() {
             <div id="display"></div>
           </div>
 
-          <div class="thumbnail">
+          <div className="thumbnail">
             <h2>Choose your preference!</h2>
             <p>
               Our extensive selection of vehicles includes popular brands and
@@ -40,10 +40,10 @@ export default function Home() {
             <p>from top brands, all at competitive prices</p>
           </div>
 
-          <section class="cars">
+          <section className="cars">
             <ul>
               <li>
-                <div class="gambar1">
+                <div className="gambar1">
                   <Image
                     src={car}
                     width={100}
@@ -53,7 +53,7 @@ export default function Home() {
                 </div>
               </li>
               <li>
-                <div class="gambar2">
+                <div className="gambar2">
                   <Image
                     src={cars}
                     width={100}
@@ -63,7 +63,7 @@ export default function Home() {
                 </div>
               </li>
               <li>
-                <div class="gambar3">
+                <div className="gambar3">
                   <Image
                     src={carss}
                     width={100}
@@ -75,7 +75,7 @@ export default function Home() {
             </ul>
           </section>
 
-          <section class="sellCar">
+          <section className="sellCar">
             <h2>Stay Tune for Updated Info</h2>
             <ul>
               <li>
