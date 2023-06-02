@@ -3,7 +3,7 @@ import { useUser } from "@supabase/auth-helpers-react";
 export default function PhoneUpdate() {
   const user = useUser();
   async function handleSubmit(e) {
-    // e.preventDefault();
+    e.preventDefault();
     const data = {
       email: user.email,
       phone: e.target.phone.value,
@@ -20,6 +20,7 @@ export default function PhoneUpdate() {
 
     if (response.status === 200) alert("success");
     else alert("failed");
+    window.location.reload();
   }
   return (
     <form className="grid grid-cols-3 items-center" onSubmit={handleSubmit}>
