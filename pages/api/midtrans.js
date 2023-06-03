@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   else {
     let snap = new Midtrans.Snap({
       isProduction: false,
-      serverKey: "SB-Mid-server-zel-khkbF-h3ZYCk_ZpvOb8E",
+      serverKey: process.env.NEXT_PUBLIC_MIDTRANS_SERVER_KEY,
     });
 
     let parameter = {
