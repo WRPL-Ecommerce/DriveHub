@@ -1,5 +1,4 @@
 import BuyerInsert from "@/components/buyerForm/buyerInsert";
-import ProfileUpdate from "@/components/profileForm/profileUpdate";
 import { Buyer } from "@/models/buyer/Buyers";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
@@ -15,7 +14,7 @@ export default function Profile({ data }) {
         <p>no user</p>
       ) : data ? (
         <div>
-          <ProfileUpdate />
+          <h1>Profile Complete</h1>
           <button
             onClick={() => {
               supabase.auth.signOut();

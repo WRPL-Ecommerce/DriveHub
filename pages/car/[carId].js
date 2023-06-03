@@ -3,30 +3,76 @@ import { Seller } from "@/models/seller/Sellers";
 import { Shipper } from "@/models/shipper/Shippers";
 import { Supplier } from "@/models/supplier/Suppliers";
 import { useUser } from "@supabase/auth-helpers-react";
+import { v4 as uuidv4 } from "uuid";
 import Image from "next/image";
 import car from "/public/car3.jpeg";
+import { Buyer } from "@/models/buyer/Buyers";
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 export default function Car({
   carData,
   sellerData,
   supplierData,
   shipperList,
+  buyerData,
 }) {
   const user = useUser();
 
   async function handlePayment(e) {
     e.preventDefault();
+
+    const transaction_details = {
+      order_id: uuidv4(),
+      gross_amount: carData.price,
+    };
+
+    const credit_card = {
+      secure: true,
+    };
+
+    const customer_details = {
+      first_name: buyerData.buyerName,
+      email: user.email,
+      phone: buyerData.contactNumber,
+      shipping_address: {
+        first_name: buyerData.buyerName,
+        email: user.email,
+        phone: buyerData.contactNumber,
+        address: buyerData.address,
+      },
+    };
+
+    const item_details = {
+      id: carData._id,
+      price: carData.price,
+      quantity: 1,
+      name: `${carData.carMake} ${carData.carModel}`,
+    };
+
     const response = await fetch("/api/midtrans", {
       method: "POST",
-      body: {},
+      body: JSON.stringify({
+        transaction_details,
+        credit_card,
+        customer_details,
+        item_details,
+      }),
     });
-    console.log(response);
+    console.log(response.status);
     const res = await response.json();
+    console.log(res);
     window.open(res.url, "_blank");
+    window.location.reload();
   }
 
   if (!user) return <h1 className=" text-3xl text-center">Login Please</h1>;
   if (!carData) return <h1 className=" text-3xl text-center">No Data</h1>;
+  if (!buyerData)
+    return (
+      <h1 className=" text-3xl text-center">
+        Complete User Information in Profile Page Please
+      </h1>
+    );
   return (
     <div className=" mt-5 flex flex-col items-center">
       <div className=" border-solid border-2 border-black-300 rounded-lg w-1/2 grid grid-cols-2 gap-3">
@@ -53,10 +99,10 @@ export default function Car({
 
         <div>
           <h1 className=" text-2xl">Supplier Detail</h1>
-          <p>{supplierData.supplierName}</p>
-          <p>{supplierData.address}</p>
-          <p>{supplierData.email}</p>
-          <p>{supplierData.contactNumber}</p>
+          <p>Name: {supplierData.supplierName}</p>
+          <p>Address: {supplierData.address}</p>
+          <p>Email: {supplierData.email}</p>
+          <p>Phone: {supplierData.contactNumber}</p>
         </div>
 
         <form
@@ -71,6 +117,7 @@ export default function Car({
                 name="shipper"
                 value={shipper.shipperName}
                 type="radio"
+                required
               />
               <label>{shipper.shipperName}</label>
             </div>
@@ -89,6 +136,22 @@ export default function Car({
 
 export async function getServerSideProps(ctx) {
   const { carId: _id } = ctx.query;
+  const supabase = createServerSupabaseClient(ctx);
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session)
+    return {
+      props: {
+        carData: null,
+        sellerData: null,
+        supplierData: null,
+        shipperList: null,
+        buyerData: null,
+      },
+    };
 
   const carDetail = await SellerCar.findOne({ _id: _id });
   const carData = JSON.parse(JSON.stringify(carDetail));
@@ -104,12 +167,16 @@ export async function getServerSideProps(ctx) {
   const shipperDetail = await Shipper.find({});
   const shipperList = JSON.parse(JSON.stringify(shipperDetail));
 
+  const buyerDetail = await Buyer.findOne({ email: session.user.email });
+  const buyerData = JSON.parse(JSON.stringify(buyerDetail));
+
   return {
     props: {
       carData,
       sellerData,
       supplierData,
       shipperList,
+      buyerData,
     },
   };
 }

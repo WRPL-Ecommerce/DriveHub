@@ -1,32 +1,23 @@
 import Midtrans from "midtrans-client";
-import { v4 as uuidv4 } from "uuid";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") res.status(200).json({ message: "other method" });
   else {
+    let data;
+    try {
+      data = JSON.parse(req.body);
+    } catch (error) {
+      data = req.body;
+    }
+    console.log(data);
+
     let snap = new Midtrans.Snap({
       isProduction: false,
       serverKey: process.env.NEXT_PUBLIC_MIDTRANS_SERVER_KEY,
     });
 
-    let parameter = {
-      transaction_details: {
-        order_id: uuidv4(),
-        gross_amount: 100000,
-      },
-      credit_card: {
-        secure: true,
-      },
-      customer_details: {
-        first_name: "Izzi",
-        last_name: "Akbar",
-        email: "izaaz240@gmail.com",
-        phone: "088220131688",
-      },
-    };
-
-    let url
-    await snap.createTransaction(parameter).then((transaction) => {
+    let url;
+    await snap.createTransaction(data).then((transaction) => {
       let transactionToken = transaction.token;
       url = transaction.redirect_url;
       console.log(transactionToken);
