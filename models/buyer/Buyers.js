@@ -4,7 +4,7 @@ const dbBuyer = mongoose.connection.useDb("buyer");
 
 const buyerSchema = new mongoose.Schema({
   buyerName: String,
-  contactNumber: Number,
+  contactNumber: String,
   email: String,
   address: String,
 });

@@ -42,7 +42,7 @@ export default async function handler(req, res) {
     // if model not found, input the model
     if (modelAndBrand.length === 0) {
       // input the model
-      const response = await fetch("http://localhost:3000/api/model", {
+      const response = await fetch("/api/model", {
         method: "POST",
         body: JSON.stringify({
           name: dataToUpload.model,
