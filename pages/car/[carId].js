@@ -3,7 +3,6 @@ import { Seller } from "@/models/seller/Sellers";
 import { Shipper } from "@/models/shipper/Shippers";
 import { Supplier } from "@/models/supplier/Suppliers";
 import { useUser } from "@supabase/auth-helpers-react";
-import { useRouter } from "next/router";
 
 export default function Car({
   carData,
@@ -12,7 +11,6 @@ export default function Car({
   shipperList,
 }) {
   const user = useUser();
-  const { push } = useRouter();
 
   async function handlePayment() {
     const response = await fetch("/api/midtrans", {
@@ -21,7 +19,7 @@ export default function Car({
     });
     console.log(response);
     const res = await response.json();
-    push(res.url);
+    window.open(res.url, "_blank");
   }
 
   if (!user) return <h1 className=" text-3xl text-center">Login Please</h1>;
@@ -49,9 +47,9 @@ export default function Car({
 
       <button
         onClick={handlePayment}
-        className=" bg-cyan-300 hover:bg-cyan-400 px-3 rounded-xl"
+        className=" bg-cyan-300 hover:bg-cyan-400 px-3 rounded-lg mt-3"
       >
-        Buy
+        Buy Now
       </button>
     </div>
   );

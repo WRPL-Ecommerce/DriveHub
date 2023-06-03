@@ -23,7 +23,7 @@ export default function Car({ data }) {
 }
 
 export async function getServerSideProps() {
-  dbConnect();
+  await dbConnect();
   const carList = await SellerCar.find({});
   const data = JSON.parse(JSON.stringify(carList));
 
