@@ -1,5 +1,6 @@
-import ProfileInsert from "@/components/profileForm/profileInsert";
+import BuyerInsert from "@/components/buyerForm/buyerInsert";
 import ProfileUpdate from "@/components/profileForm/profileUpdate";
+import { Buyer } from "@/models/buyer/Buyers";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
@@ -12,7 +13,7 @@ export default function Profile({ data }) {
     <>
       {!user ? (
         <p>no user</p>
-      ) : data.length > 0 ? (
+      ) : data !== null ? (
         <div>
           <ProfileUpdate />
           <button
@@ -26,7 +27,7 @@ export default function Profile({ data }) {
         </div>
       ) : (
         <div>
-          <ProfileInsert />
+          <BuyerInsert />
           <button
             onClick={() => {
               supabase.auth.signOut();
@@ -55,15 +56,13 @@ export async function getServerSideProps(ctx) {
       },
     };
   } else {
-    const { data } = await supabase
-      .from("Profile")
-      .select("*")
-      .eq("email", session.user.email);
-    console.log(data);
+    const buyer = await Buyer.findOne({ email: session.user.email });
+    const buyerData = JSON.parse(JSON.stringify(buyer));
+    console.log(buyerData);
 
     return {
       props: {
-        data: data,
+        data: buyerData,
       },
     };
   }
