@@ -13,7 +13,7 @@ export default function Profile({ data }) {
     <>
       {!user ? (
         <p>no user</p>
-      ) : data !== null ? (
+      ) : data ? (
         <div>
           <ProfileUpdate />
           <button
