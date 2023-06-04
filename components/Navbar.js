@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   const user = useUser();
-  const array1 = ["About", "Order", "Profile"];
+  const array1 = ["Car", "About", "Profile"];
   const array2 = ["About"];
 
   return (

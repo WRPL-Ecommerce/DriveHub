@@ -40,7 +40,7 @@ export default async function handler(req, res) {
       // brand does not exist
 
       // input new brand
-      const response = await fetch("http://localhost:3000/api/brand", {
+      const response = await fetch("/api/brand", {
         method: "POST",
         body: JSON.stringify({
           name: dataToUpload.brand,
