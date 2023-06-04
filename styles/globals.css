@@ -284,3 +284,68 @@ input::-webkit-inner-spin-button {
     font-family: 'Poppins';
     padding: 30px;
   }
+
+  .intro h1{
+    font-size: 80px;
+    font-weight: 600;
+    animation: 
+      typing 3s steps(60, end),
+      blink-caret .5s step-end infinite;
+  }
+
+  @keyframes typing {
+    from { width: 0% }
+    to { width: 100% }
+  }
+  
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: orange; }
+  }
+
+  .intro h1{
+    padding: 20px 20px 20px 20px;
+  }
+
+  .intro p{
+    padding: 20px 20px 20px 20px;
+    font-size: 30px;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  .history{
+    padding: 20px 20px 20px 20px;
+    font-size: 30px;
+    text-align: right;
+    animation: fadeIn 3s;
+    background-color: #D9D9D9;
+  }
+
+  .historypt2{
+    font-size: 30px;
+    text-align: left;
+    animation: fadeIn 5s;
+    padding: 20px 20px 20px 20px;
+  }
+
+  .historypt3{
+    font-size: 30px;
+    text-align: right;
+    animation: fadeIn 7s;
+    padding: 20px 20px 20px 20px;
+    background-color: #D9D9D9;
+  }
+
+  .cta{
+    font-size: 30px;
+    text-align: left;
+    animation: fadeIn 9s;
+    padding: 20px 20px 20px 20px;
+  }
+
+  .meet{
+    background-color: aqua;
+  }
+
+
